@@ -5,7 +5,7 @@
 
 
 Sprawozanie labolatoria Bazy Danych documentation
-=================================================
+===================================================
 
 .. toctree::
    :maxdepth: 2
@@ -19,7 +19,7 @@ Sprawozanie labolatoria Bazy Danych documentation
 
 
 Indices and tables
-==================
+====================
 
 * :ref:`genindex`
 * :ref:`modindex`
