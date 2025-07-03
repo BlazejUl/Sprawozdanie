@@ -5,8 +5,7 @@
 
 
 Sprawozanie labolatoria Bazy Danych documentation
-=================================================e to Doc's documentation!
-===============================
+=================================================
 
 .. toctree::
    :maxdepth: 2
