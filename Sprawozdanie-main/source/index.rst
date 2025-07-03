@@ -8,7 +8,7 @@ Sprawozanie labolatoria Bazy Danych documentation
 ===================================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
     
    rozdzial1/index
