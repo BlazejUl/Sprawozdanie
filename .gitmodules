@@ -1,3 +1,6 @@
 [submodule "Sprawozdanie-main/source/rozdzial2/bezpieczenstwo"]
 	path = Sprawozdanie-main/source/rozdzial2/bezpieczenstwo
 	url = https://github.com/BlazejUl/bezpieczenstwo
+[submodule "Sprawozdanie-main/source/kod-db"]
+	path = Sprawozdanie-main/source/kod-db
+	url = https://github.com/BlazejUl/kod-db
