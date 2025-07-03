@@ -2,7 +2,7 @@ Modele konceptualny, logiczny, fizyczny
 =====================================
 
 
-:author: Blazej Uliasz
+:author: Błażej Uliasz
 
 Wprowadzenie
 -----------
