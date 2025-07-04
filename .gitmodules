@@ -13,6 +13,6 @@
 [submodule "Sprawozdanie-main/source/rozdzial2/Wydajnosc_Skalowanie_i_Replikacja"]
 	path = Sprawozdanie-main/source/rozdzial2/Wydajnosc_Skalowanie_i_Replikacja
 	url = https://github.com/Broksonn/Wydajnosc_Skalowanie_i_Replikacja
-[submodule "Sprawozdanie-main/repo-wspolne"]
-	path = Sprawozdanie-main/repo-wspolne
+[submodule "Sprawozdanie-main/source/rozdzial2/repo-wspolne"]
+	path = Sprawozdanie-main/source/rozdzial2/repo-wspolne
 	url = https://github.com/GrzegorzSzczepanek/repo-wspolne
