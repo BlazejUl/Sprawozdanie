@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sprzęt dla baz danych &#8212; Doc 1. - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=cb25574f" />
+    <script src="../../../_static/documentation_options.js?v=88ea07f6"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../../search.html" />
+    <link rel="next" title="Konfiguracja baz danych" href="../../Konfiguracja_baz_danych/index.html" />
+    <link rel="prev" title="Sprzet_dla_bazy_danych documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sprzet-dla-baz-danych">
+<h1>Sprzęt dla baz danych<a class="headerlink" href="#sprzet-dla-baz-danych" title="Link to this heading">¶</a></h1>
+<section id="wstep">
+<h2>Wstęp<a class="headerlink" href="#wstep" title="Link to this heading">¶</a></h2>
+<p>Systemy zarządzania bazami danych (DBMS) są fundamentem współczesnych aplikacji i usług – od rozbudowanych systemów transakcyjnych, przez aplikacje internetowe, aż po urządzenia mobilne czy systemy wbudowane. W zależności od zastosowania i skali projektu, wybór odpowiedniego silnika bazodanowego oraz towarzyszącej mu infrastruktury sprzętowej ma kluczowe znaczenie dla zapewnienia wydajności, stabilności i niezawodności systemu</p>
+</section>
+<section id="sprzet-dla-bazy-danych-postgresql">
+<h2>Sprzęt dla bazy danych PostgreSQL<a class="headerlink" href="#sprzet-dla-bazy-danych-postgresql" title="Link to this heading">¶</a></h2>
+<p>PostgreSQL to potężny system RDBMS, ceniony za swoją skalowalność, wsparcie dla zaawansowanych zapytań i dużą elastyczność. Jego efektywne działanie zależy w dużej mierze od odpowiednio dobranej infrastruktury sprzętowej.</p>
+<section id="procesor">
+<h3>Procesor<a class="headerlink" href="#procesor" title="Link to this heading">¶</a></h3>
+<p>PostgreSQL obsługuje wiele wątków, jednak pojedyncze zapytania zazwyczaj są wykonywane jednordzeniowo. Z tego względu optymalny procesor powinien cechować się zarówno wysokim taktowaniem jak i odpowiednią liczbą rdzeni do równoczesnej obsługi wielu zapytań. W środowiskach produkcyjnych najczęściej wykorzystuje się procesory serwerowe takie jak Intel Xeon czy AMD EPYC, które oferują zarówno wydajność, jak i niezawodność.</p>
+</section>
+<section id="pamiec-operacyjna">
+<h3>Pamięć operacyjna<a class="headerlink" href="#pamiec-operacyjna" title="Link to this heading">¶</a></h3>
+<p>RAM odgrywa istotną rolę w przetwarzaniu danych, co znacząco wpływa na wydajność operacji. PostgreSQL efektywnie wykorzystuje dostępne zasoby pamięci do cache’owania, dlatego im więcej pamięci RAM tym lepiej. W praktyce, minimalne pojemności dla mniejszych baz to około 16–32 GB, natomiast w środowiskach produkcyjnych i analitycznych często stosuje się od 64 GB do nawet kilkuset.</p>
+</section>
+<section id="przestrzen-dyskowa">
+<h3>Przestrzeń dyskowa<a class="headerlink" href="#przestrzen-dyskowa" title="Link to this heading">¶</a></h3>
+<p>Dyski twarde to krytyczny element wpływający na szybkość działania bazy. Zdecydowanie zaleca się korzystanie z dysków SSD (najlepiej NVMe), które zapewniają wysoką przepustowość i niskie opóźnienia. Warto zastosować konfigurację RAID 10, która łączy szybkość z redundancją.</p>
+</section>
+<section id="siec-internetowa">
+<h3>Sieć internetowa<a class="headerlink" href="#siec-internetowa" title="Link to this heading">¶</a></h3>
+<p>W przypadku PostgreSQL działającego w klastrach, środowiskach chmurowych lub przy replikacji danych, wydajne połączenie sieciowe ma kluczowe znaczenie. Standardem są interfejsy 1 Gb/s, lecz w dużych bazach danych stosuje się nawet 10 Gb/s i więcej. Liczy się nie tylko przepustowość, ale też niskie opóźnienia i niezawodność.</p>
+</section>
+<section id="zasilanie">
+<h3>Zasilanie<a class="headerlink" href="#zasilanie" title="Link to this heading">¶</a></h3>
+<p>Niezawodność zasilania to jeden z filarów bezpieczeństwa danych. Zaleca się stosowanie zasilaczy redundantnych oraz zasilania awaryjnego UPS, które umożliwia bezpieczne wyłączenie systemu w przypadku awarii. Można użyć własnych generatorów prądu.</p>
+</section>
+<section id="chlodzenie">
+<h3>Chłodzenie<a class="headerlink" href="#chlodzenie" title="Link to this heading">¶</a></h3>
+<p>Intensywna praca serwera PostgreSQL generuje duże ilości ciepła. Wydajne chłodzenie powietrzne, a często nawet cieczowe jest potrzebne by utrzymać stabilność systemu i przedłużyć żywotność komponentów. W profesjonalnych serwerowniach stosuje się zaawansowane systemy klimatyzacji i kontroli termicznej.</p>
+</section>
+</section>
+<section id="sprzet-dla-bazy-danych-sqlite">
+<h2>Sprzęt dla bazy danych SQLite<a class="headerlink" href="#sprzet-dla-bazy-danych-sqlite" title="Link to this heading">¶</a></h2>
+<p>SQLite to lekki, samodzielny silnik bazodanowy, nie wymagający uruchamiania oddzielnego serwera. Znajduje zastosowanie m.in. w aplikacjach mobilnych, przeglądarkach internetowych, systemach IoT czy oprogramowaniu wbudowanym.</p>
+<section id="id1">
+<h3>Procesor<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>SQLite działa lokalnie na urządzeniu użytkownika. Dla prostych operacji wystarczy procesor z jednym, albo dwoma rdzeniami. W bardziej wymagających zastosowaniach (np. filtrowanie dużych zbiorów danych) przyda się szybszy CPU. Wielowątkowość nie daje istotnych korzyści.</p>
+</section>
+<section id="id2">
+<h3>Pamięć operacyjna<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>SQLite potrzebuje niewielkiej ilości pamięci RAM w wielu przypadkach wystarcza 256MB do 1GB. Jednak dla komfortowej pracy z większymi zbiorami danych warto zapewnić nieco więcej pamięci, czyli 2 GB lub więcej, szczególnie w aplikacjach desktopowych lub mobilnych.</p>
+</section>
+<section id="id3">
+<h3>Przestrzeń dyskowa<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Dane w SQLite zapisywane są w jednym pliku. Wydajność operacji zapisu/odczytu zależy od nośnika. Dyski SSD lub szybkie karty pamięci są preferowane. W przypadku urządzeń wbudowanych, kluczowe znaczenie ma trwałość nośnika, zwłaszcza przy częstym zapisie danych.</p>
+</section>
+<section id="id4">
+<h3>Sieć internetowa<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>SQLite nie wymaga połączeń sieciowych – działa lokalnie. W sytuacjach, gdzie dane są synchronizowane z serwerem lub przenoszone przez sieć (np. w aplikacjach mobilnych), znaczenie ma jakość połączenia (Wi-Fi, LTE), choć wpływa to bardziej na komfort użytkowania aplikacji niż na samą bazę.</p>
+</section>
+<section id="id5">
+<h3>Zasilanie<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>W systemach mobilnych i IoT efektywne zarządzanie energią jest kluczowe. Aplikacje powinny ograniczać zbędne operacje odczytu i zapisu, by niepotrzebnie nie obciążać procesora i nie zużywać baterii. W zastosowaniach stacjonarnych problem ten zazwyczaj nie występuje.</p>
+</section>
+<section id="id6">
+<h3>Chłodzenie<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>SQLite nie generuje dużego obciążenia cieplnego. W większości przypadków wystarczy pasywne chłodzenie w zamkniętych obudowach, lecz warto zadbać o minimalny przepływ powietrza.</p>
+</section>
+</section>
+<section id="podsumowanie">
+<h2>Podsumowanie<a class="headerlink" href="#podsumowanie" title="Link to this heading">¶</a></h2>
+<p>Zarówno PostgreSQL, jak i SQLite pełnią istotne role w ekosystemie baz danych, lecz ich wymagania sprzętowe są diametralnie różne. PostgreSQL, jako system serwerowy, wymaga zaawansowanego i wydajnego sprzętu: mocnych procesorów, dużej ilości RAM, szybkich dysków, niezawodnej sieci, zasilania i chłodzenia.
+Z kolei SQLite działa doskonale na skromniejszych zasobach, stawiając na lekkość i prostotę implementacyjną.
+Dostosowanie sprzętu do konkretnego silnika DBMS i charakterystyki aplikacji pozwala nie tylko na osiągnięcie optymalnej wydajności, ale też gwarantuje stabilność i bezpieczeństwo działania całego systemu.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Doc</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzial1/index.html">Wprowadzenie</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Przegląd literatury</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Sprzet_dla_bazy_danych documentation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Sprzęt dla baz danych</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#wstep">Wstęp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sprzet-dla-bazy-danych-postgresql">Sprzęt dla bazy danych PostgreSQL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sprzet-dla-bazy-danych-sqlite">Sprzęt dla bazy danych SQLite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Konfiguracja_baz_danych/index.html">Konfiguracja baz danych</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../repo-wspolne/index.html">Monitorowanie i diagnostyka</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Wydajnosc_Skalowanie_i_Replikacja/index.html">Wydajność, skalowanie i replikacja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bezpieczenstwo/index.html">Bezpieczeństwo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzial3/index.html">Modele Bazy Danych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzial4/index.html">Skrypty oraz Zapytania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzial5/index.html">Spis repozytoriów</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Przegląd literatury</a><ul>
+  <li><a href="index.html">Sprzet_dla_bazy_danych documentation</a><ul>
+      <li>Previous: <a href="index.html" title="poprzedni rozdział">Sprzet_dla_bazy_danych documentation</a></li>
+      <li>Next: <a href="../../Konfiguracja_baz_danych/index.html" title="następny rozdział">Konfiguracja baz danych</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025, Uliasz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/rozdzial2/Sprzet-dla-bazy-danych/source/SprzetDlaBazyDanych.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

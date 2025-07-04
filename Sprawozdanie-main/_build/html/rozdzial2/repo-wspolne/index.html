@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Monitorowanie i diagnostyka &#8212; Doc 1. - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=cb25574f" />
+    <script src="../../_static/documentation_options.js?v=88ea07f6"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../search.html" />
+    <link rel="next" title="Wydajność, skalowanie i replikacja" href="../Wydajnosc_Skalowanie_i_Replikacja/index.html" />
+    <link rel="prev" title="Sprawozdanie: Konfiguracja i Zarządzanie Bazą Danych" href="../Konfiguracja_baz_danych/Konfiguracja_baz_danych.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="monitorowanie-i-diagnostyka">
+<h1>Monitorowanie i diagnostyka<a class="headerlink" href="#monitorowanie-i-diagnostyka" title="Link to this heading">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Autorzy<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Dominika Półchłopek</p></li>
+<li><p>Kacper Rasztar</p></li>
+<li><p>Grzegorz Szczepanek</p></li>
+</ul>
+</dd>
+</dl>
+<section id="wstep">
+<h2>Wstęp<a class="headerlink" href="#wstep" title="Link to this heading">¶</a></h2>
+<p>Monitorowanie i diagnostyka baz danych PostgreSQL stanowią fundamentalne elementy zapewniające wydajność, bezpieczeństwo oraz stabilność środowiska produkcyjnego. Nowoczesne rozwiązania monitorowania umożliwiają administratorom proaktywne wykrywanie problemów, optymalizację wydajności oraz zapewnienie zgodności z przepisami bezpieczeństwa. Efektywne monitorowanie PostgreSQL obejmuje szeroki zakres metryk - od aktywności sesji użytkowników, przez analizę operacji na danych, po szczegółowe śledzenie logów systemowych i zasobów na poziomie systemu operacyjnego.</p>
+</section>
+<section id="monitorowanie-sesji-i-uzytkownikow">
+<h2>Monitorowanie   Sesji   i       Użytkowników<a class="headerlink" href="#monitorowanie-sesji-i-uzytkownikow" title="Link to this heading">¶</a></h2>
+<section id="analiza-aktywnosci-uzytkownikow">
+<h3>Analiza Aktywności      Użytkowników<a class="headerlink" href="#analiza-aktywnosci-uzytkownikow" title="Link to this heading">¶</a></h3>
+<p>Systematyczne obserwowanie działań wykonywanych przez użytkowników bazy danych stanowi podstawę skutecznego monitorowania PostgreSQL. Kluczowym narzędziem w tym obszarze jest widok systemowy pg_stat_activity, który umożliwia śledzenie bieżących zapytań, czasu ich trwania oraz identyfikowanie użytkowników i aplikacji korzystających z bazy. Widok pg_stat_activity przedstawia informacje o aktywnych procesach serwera wraz ze szczegółami dotyczącymi powiązanych sesji użytkowników i zapytań. Każdy wiersz w tym widoku reprezentuje proces serwera z danymi o bieżącym stanie połączenia bazy danych.</p>
+<p>Praktyczne zastosowanie pg_stat_activity obejmuje monitorowanie aktywności w czasie rzeczywistym oraz generowanie powiadomień w przypadku wykrycia nieprawidłowości. Narzędzia takie jak pgAdmin, Zabbix czy Prometheus wykorzystują te dane do wizualizacji i automatyzacji procesów monitorowania. Administratorzy mogą wykorzystywać proste zapytania SQL do analizy aktywności, na przykład: „SELECT * FROM pg_stat_activity;” pozwala na wyświetlenie wszystkich aktywnych sesji.</p>
+</section>
+<section id="zarzadzanie-zasobami-i-limity">
+<h3>Zarządzanie     Zasobami        i       Limity<a class="headerlink" href="#zarzadzanie-zasobami-i-limity" title="Link to this heading">¶</a></h3>
+<p>Efektywne zarządzanie zasobami w PostgreSQL opiera się na odpowiedniej konfiguracji parametrów systemowych takich jak max_connections czy work_mem, które kontrolują liczbę jednoczesnych połączeń i wykorzystanie pamięci. Monitorowanie wykorzystania zasobów realizowane jest poprzez narzędzia systemowe jak top, htop, vmstat czy iostat w środowisku Linux, a także dedykowane rozwiązania do monitorowania baz danych.</p>
+<p>Kluczowe metryki obejmują współczynnik trafień cache’u, który powinien utrzymywać się powyżej 99% dla systemów produkcyjnych. Zapytanie sprawdzające ten wskaźnik: „SELECT sum(heap_blks_hit) / (sum(heap_blks_hit) + sum(heap_blks_read)) as ratio FROM pg_statio_user_tables;” pozwala na ocenę efektywności wykorzystania pamięci.</p>
+</section>
+<section id="wykrywanie-problemow-z-blokadami">
+<h3>Wykrywanie      Problemów       z       Blokadami<a class="headerlink" href="#wykrywanie-problemow-z-blokadami" title="Link to this heading">¶</a></h3>
+<p>Identyfikacja i analiza blokad stanowi istotny element zapewniający płynność działania aplikacji. PostgreSQL udostępnia widok pg_locks umożliwiający śledzenie blokad i konfliktów między transakcjami. Specjalistyczne narzędzia jak pganalyze oferują zaawansowane funkcje monitorowania blokad z automatycznym wykrywaniem sytuacji deadlock oraz powiadomieniami o potencjalnych zagrożeniach .</p>
+<p>Podstawowe zapytanie do identyfikacji nieprzyznanych blokad: „SELECT relation::regclass, * FROM pg_locks WHERE NOT granted;” pozwala na szybkie wykrycie problemów. Bardziej zaawansowane analizy wymagają łączenia informacji z widoków pg_locks i pg_stat_activity w celu identyfikacji procesów blokujących i blokowanych.</p>
+</section>
+</section>
+<section id="monitorowanie-dostepu-do-tabel-i-operacji-na-danych">
+<h2>Monitorowanie   Dostępu do      Tabel   i       Operacji        na      Danych<a class="headerlink" href="#monitorowanie-dostepu-do-tabel-i-operacji-na-danych" title="Link to this heading">¶</a></h2>
+<section id="analiza-uzycia-danych">
+<h3>Analiza Użycia  Danych<a class="headerlink" href="#analiza-uzycia-danych" title="Link to this heading">¶</a></h3>
+<p>Administratorzy baz danych wykorzystują narzędzia monitorujące takie jak pg_stat_user_tables w PostgreSQL do zrozumienia wzorców wykorzystania tabel oraz identyfikacji najczęściej wykonywanych operacji. Analiza tych danych pozwala zidentyfikować najbardziej obciążone tabele, ocenić rozkład ruchu oraz przewidzieć przyszłe potrzeby związane z rozbudową infrastruktury.</p>
+<p>Narzędzia do wizualizacji jak Grafana czy Prometheus umożliwiają prezentację trendów w użyciu tabel i pomagają w planowaniu optymalizacji. Kompleksowe monitorowanie obejmuje śledzenie operacji SELECT, INSERT, UPDATE, DELETE oraz analizę wzorców dostępu do danych w różnych okresach czasowych.</p>
+</section>
+<section id="wykrywanie-nieprawidlowych-zapytan">
+<h3>Wykrywanie Nieprawidłowych Zapytań<a class="headerlink" href="#wykrywanie-nieprawidlowych-zapytan" title="Link to this heading">¶</a></h3>
+<p>Do wykrywania zapytań o długim czasie wykonania lub wysokim zużyciu zasobów wykorzystuje się rozszerzenie pg_stat_statements, które pozwala monitorować wydajność zapytań, analizować plany wykonania i identyfikować operacje wymagające optymalizacji. Moduł pg_stat_statements zapewnia śledzenie statystyk planowania i wykonania wszystkich instrukcji SQL wykonywanych przez serwer.</p>
+<p>Konfiguracja pg_stat_statements wymaga dodania modułu do shared_preload_libraries w postgresql.conf oraz restartu serwera. Widok pg_stat_statements zawiera po jednym wierszu dla każdej unikalnej kombinacji identyfikatora bazy danych, użytkownika i zapytania, do maksymalnej liczby różnych instrukcji, które moduł może śledzić.</p>
+</section>
+<section id="bezpieczenstwo-i-zgodnosc">
+<h3>Bezpieczeństwo i Zgodność<a class="headerlink" href="#bezpieczenstwo-i-zgodnosc" title="Link to this heading">¶</a></h3>
+<p>Śledzenie dostępu do tabel jest kluczowe z punktu widzenia bezpieczeństwa oraz zgodności z przepisami takimi jak RODO czy PCI DSS. W PostgreSQL do audytu operacji na danych służy rozszerzenie pgaudit, które pozwala rejestrować szczegółowe informacje o działaniach na poziomie zapytań i transakcji. PGAudit zapewnia narzędzia potrzebne do tworzenia logów audytowych wymaganych do przejścia określonych audytów rządowych, finansowych lub certyfikacji ISO.</p>
+<p>Systemy takie jak ELK Stack czy Splunk umożliwiają centralizację i analizę logów oraz konfigurację alertów na podejrzane działania, co wzmacnia bezpieczeństwo środowiska bazodanowego. Automatyczne powiadomienia można skonfigurować dla zdarzeń takich jak próby logowania poza godzinami pracy lub masowe operacje na wrażliwych tabelach.</p>
+</section>
+</section>
+<section id="monitorowanie-logow-i-raportowanie-bledow">
+<h2>Monitorowanie Logów i Raportowanie Błędów<a class="headerlink" href="#monitorowanie-logow-i-raportowanie-bledow" title="Link to this heading">¶</a></h2>
+<section id="analiza-logow-systemowych">
+<h3>Analiza Logów Systemowych<a class="headerlink" href="#analiza-logow-systemowych" title="Link to this heading">¶</a></h3>
+<p>PostgreSQL generuje szczegółowe logi systemowe i dzienniki błędów stanowiące podstawowe źródło informacji o stanie bazy danych. Dzienniki rejestrują wszelkie błędy, ostrzeżenia, nietypowe zdarzenia oraz informacje o operacjach wykonywanych przez użytkowników i aplikacje, obejmując kody błędów, czas wystąpienia problemu, tekst zapytania SQL oraz szczegóły środowiska wykonania.</p>
+<p>Regularna analiza logów pozwala administratorom na szybkie wykrywanie i rozwiązywanie problemów przed ich wpływem na użytkowników końcowych. Do analizy wykorzystuje się narzędzia takie jak ELK Stack (Elasticsearch, Logstash, Kibana), Splunk, pgBadger czy wbudowane funkcje PostgreSQL. pgBadger stanowi szczególnie efektywne narzędzie - jest to szybki analizator logów PostgreSQL napisany w Perl, który przetwarza dane wyjściowe logów na raporty HTML z szczegółowymi informacjami o wydajności.</p>
+</section>
+<section id="automatyczne-raportowanie-i-alerty">
+<h3>Automatyczne Raportowanie i Alerty<a class="headerlink" href="#automatyczne-raportowanie-i-alerty" title="Link to this heading">¶</a></h3>
+<p>Automatyzacja raportowania i alertowania stanowi kluczowy element szybkiego reagowania na incydenty. Narzędzia takie jak pgAdmin, Zabbix, Prometheus czy Grafana umożliwiają konfigurację reguł automatycznego generowania raportów oraz wysyłania powiadomień przy wykryciu określonych zdarzeń.</p>
+<p>Skuteczne alertowanie wymaga ostrożnego ustawiania progów i właściwej priorytetyzacji. Alerty o wysokim priorytecie obejmują opóźnienia replikacji przekraczające 2 minuty, liczę połączeń przekraczającą 85% max_connections oraz współczynnik trafień cache’u spadający poniżej 98% dla systemów produkcyjnych. Powiadomienia mogą być wysyłane poprzez e-mail, SMS, Slack lub inne kanały komunikacji.</p>
+</section>
+<section id="konfiguracja-logowania-dla-pgbadger">
+<h3>Konfiguracja Logowania dla pgBadger<a class="headerlink" href="#konfiguracja-logowania-dla-pgbadger" title="Link to this heading">¶</a></h3>
+<p>Aby efektywnie wykorzystać pgBadger, logowanie w PostgreSQL powinno być skonfigurowane w sposób zapewniający maksimum informacji. Podstawowe ustawienia konfiguracyjne w postgresql.conf obejmują: log_checkpoints = on, log_connections = on, log_disconnections = on, log_lock_waits = on, log_temp_files = 0, log_autovacuum_min_duration = 0.</p>
+<p>Szczególnie wartościowe są raporty wolnych zapytań generowane przez pgBadger, które polegają na ustawieniu log_min_duration_statement. pgBadger może przetwarzać logi PostgreSQL niezależnie od tego, czy są to syslog, stderr czy csvlog, o ile linie logów zawierają wystarczające informacje w prefiksie .</p>
+</section>
+</section>
+<section id="monitorowanie-na-poziomie-systemu-operacyjnego">
+<h2>Monitorowanie na Poziomie Systemu Operacyjnego<a class="headerlink" href="#monitorowanie-na-poziomie-systemu-operacyjnego" title="Link to this heading">¶</a></h2>
+<section id="narzedzia-systemowe">
+<h3>Narzędzia Systemowe<a class="headerlink" href="#narzedzia-systemowe" title="Link to this heading">¶</a></h3>
+<p>Monitorowanie zasobów systemowych takich jak procesor, pamięć, dysk i sieć jest kluczowe dla zapewnienia stabilnej pracy PostgreSQL. W środowisku Linux administratorzy wykorzystują narzędzia takie jak top (wyświetlające listę procesów i zużycie zasobów w czasie rzeczywistym), htop (oferujące graficzne przedstawienie obciążenia), iostat (monitorujące statystyki wejścia/wyjścia) oraz vmstat (dostarczające informacji o pamięci i aktywności procesora).</p>
+<p>W środowisku Windows popularne narzędzia obejmują Menedżer zadań umożliwiający monitorowanie użycia CPU, pamięci, dysku i sieci przez poszczególne procesy oraz Monitor systemu (Performance Monitor) - zaawansowane narzędzie do śledzenia wielu wskaźników wydajności. Te narzędzia umożliwiają szybkie wykrywanie i diagnozowanie problemów z wydajnością zarówno na poziomie systemu operacyjnego, jak i samej bazy danych.</p>
+<p>Efektywne monitorowanie systemu wymaga śledzenia kluczowych metryk: wykorzystania CPU (wysokie użycie może ograniczać przetwarzanie zapytań), CPU steal time (szczególnie w środowiskach zwirtualizowanych), wykorzystania pamięci przez PostgreSQL oraz ogólnego obciążenia pamięci systemu. Krytyczne jest unikanie wykorzystania swap przez PostgreSQL, ponieważ drastycznie pogarsza to wydajność.</p>
+</section>
+<section id="integracja-z-narzedziami-zewnetrznymi">
+<h3>Integracja z Narzędziami Zewnętrznymi<a class="headerlink" href="#integracja-z-narzedziami-zewnetrznymi" title="Link to this heading">¶</a></h3>
+<p>PostgreSQL doskonale integruje się z zaawansowanymi narzędziami monitorowania infrastruktury IT, umożliwiającymi centralizację nadzoru oraz automatyzację reakcji na incydenty. Nagios, popularny system monitorowania infrastruktury, pozwala na monitorowanie stanu serwerów, usług, zasobów sprzętowych oraz sieci z konfiguracją alertów powiadamiających o przekroczeniu progów wydajności.</p>
+<p>Prometheus stanowi narzędzie do zbierania i przechowywania metryk współpracujące z wieloma eksporterami, w tym dedykowanymi dla PostgreSQL. OpenTelemetry Collector oferuje nowoczesne podejście, działając jako agent pobierający dane telemetryczne z systemów i eksportujący je do backendu OpenTelemetry. Grafana zapewnia zaawansowaną wizualizację danych, umożliwiając tworzenie interaktywnych dashboardów prezentujących kluczowe wskaźniki wydajności PostgreSQL.</p>
+</section>
+</section>
+<section id="narzedzia-monitorowania-postgresql">
+<h2>Narzędzia Monitorowania PostgreSQL<a class="headerlink" href="#narzedzia-monitorowania-postgresql" title="Link to this heading">¶</a></h2>
+<section id="narzedzia-open-source">
+<h3>Narzędzia Open Source<a class="headerlink" href="#narzedzia-open-source" title="Link to this heading">¶</a></h3>
+<p>Ekosystem narzędzi open source dla PostgreSQL jest bogaty i różnorodny. pgAdmin oferuje graficzny interfejs do administrowania bazami danych z funkcjami monitorowania aktywności serwera, wydajności zapytań oraz obiektów bazy danych. Dashboard serwera w pgAdmin dostarcza przegląd ważnych metryk, w tym wykorzystania CPU, pamięci, miejsca na dysku i aktywnych połączeń.</p>
+<p>pgBadger stanowi jedną z najpopularniejszych opcji - to szybki analizator logów PostgreSQL zbudowany dla wydajności, który tworzy szczegółowe raporty w formacie HTML5 z dynamicznymi wykresami. Najnowsza wersja pgBadger 13.0 wprowadza nowe funkcje, w tym konfigurowalne histogramy czasów zapytań i sesji. Narzędzie jest idealne do zrozumienia zachowania serwerów PostgreSQL i identyfikacji zapytań wymagających optymalizacji.</p>
+<p>PGWatch reprezentuje kolejne zaawansowane rozwiązanie - to elastyczne, samodzielne narzędzie do monitorowania metryk PostgreSQL oferujące instalację w jedną minutę przy użyciu Dockera. PGWatch charakteryzuje się nieinwazyjną konfiguracją, intuicyjną prezentacją metryk przy użyciu Grafany oraz łatwą rozszerzalnością poprzez definiowanie metryk w czystym SQL.</p>
+</section>
+<section id="rozwiazania-komercyjne">
+<h3>Rozwiązania Komercyjne<a class="headerlink" href="#rozwiazania-komercyjne" title="Link to this heading">¶</a></h3>
+<p>DataDog APM zapewnia komercyjną platformę monitorowania i analizy ze specjalistyczną integracją PostgreSQL. Platforma oferuje łatwą w użyciu integrację PostgreSQL umożliwiającą zbieranie i monitorowanie metryk wydajności bez ręcznej instrumentacji. Agent DataDog automatycznie pobiera metryki PostgreSQL udostępniane przez serwer, obejmując połączenia z bazą danych, wydajność zapytań, statystyki puli buforów oraz status replikacji.</p>
+<p>Sematext Monitoring skupia się na logach, infrastrukturze, śledzeniu i monitorowaniu wydajności nie tylko dla PostgreSQL, ale także dla wielu innych baz danych. Rozwiązanie oferuje łatwy w konfiguracji agent PostgreSQL oraz wbudowaną integrację logów PostgreSQL pozwalającą identyfikować wolne zapytania, błędy i ostrzeżenia.</p>
+<p>pganalyze stanowi wyspecjalizowane narzędzie monitorowania PostgreSQL umożliwiające optymalizację i analizę zapytań, łatwe monitorowanie bieżących zapytań w czasie rzeczywistym oraz zbieranie planów zapytań. Dzięki kompleksowym danym o wydajności zapytań pganalyze pozwala szybko identyfikować przyczyny problemów i sprawdzać skuteczność wdrożonych rozwiązań.</p>
+</section>
+<section id="zabbix-dla-postgresql">
+<h3>Zabbix dla PostgreSQL<a class="headerlink" href="#zabbix-dla-postgresql" title="Link to this heading">¶</a></h3>
+<p>Zabbix stanowi open-source’owe rozwiązanie monitorowania obsługujące PostgreSQL poprzez wbudowane szablony i niestandardowe skrypty. System opiera się na agentach instalowanych na systemach docelowych - w przypadku PostgreSQL wymaga konfiguracji agenta Zabbix na serwerze PostgreSQL.</p>
+<p>Implementacja Zabbix dla PostgreSQL wymaga stworzenia użytkownika monitorowania z odpowiednimi prawami dostępu. Dla PostgreSQL w wersji 10 i wyższej: „CREATE USER zbx_monitor WITH PASSWORD «&lt;PASSWORD&gt;» INHERIT; GRANT pg_monitor TO zbx_monitor;”. Po zaimportowaniu szablonu PostgreSQL Zabbix automatycznie zbiera metryki takie jak liczba połączeń, wskaźniki transakcji, wydajność zapytań i inne.</p>
+</section>
+</section>
+<section id="najlepsze-praktyki-monitorowania">
+<h2>Najlepsze Praktyki Monitorowania<a class="headerlink" href="#najlepsze-praktyki-monitorowania" title="Link to this heading">¶</a></h2>
+<section id="ustanawianie-baselines-wydajnosci">
+<h3>Ustanawianie Baselines Wydajności<a class="headerlink" href="#ustanawianie-baselines-wydajnosci" title="Link to this heading">¶</a></h3>
+<p>Tworzenie baselines wydajności stanowi fundament skutecznego wykrywania anomalii. Bez zrozumienia normalnych wzorców zachowania identyfikacja problematycznych odchyleń staje się zgadywaniem zamiast analizy opartej na danych. Kompleksowe ustalanie baselines wymaga zbierania metryk w różnych ramach czasowych i wzorcach obciążenia, obejmując dzienne wzorce (szczczyty w godzinach biznesowych i nocne przetwarzanie), tygodniowe różnice oraz miesięczne i sezonowe wariacje.</p>
+<p>Dla każdego wzorca należy dokumentować wskaźniki przepustowości zapytań, poziomy wykorzystania zasobów, zakresy liczby połączeń, wskaźniki transakcji oraz rozkłady zdarzeń oczekiwania. Zaleca się zbieranie co najmniej trzech cykli każdego typu wzorca przed ustaleniem wartości progowych.</p>
+</section>
+<section id="korelacja-metryk-miedzysystemowych">
+<h3>Korelacja Metryk Międzysystemowych<a class="headerlink" href="#korelacja-metryk-miedzysystemowych" title="Link to this heading">¶</a></h3>
+<p>Problemy wydajności PostgreSQL rzadko występują w izolacji. Najbardziej wartościowe implementacje monitorowania korelują metryki z różnych podsystemów w celu ujawnienia związków przyczynowo-skutkowych. Efektywne strategie korelacji obejmują łączenie metryk wykonania zapytań z metrykami zasobów systemowych, korelację zdarzeń wdrożeniowych aplikacji z metrykami wydajności bazy danych oraz analizę metryk przy użyciu spójnych okien czasowych.</p>
+<p>Implementacja zwykle wymaga ujednoliconego oznaczania czasowego w systemach monitorowania, spójnego tagowania metadanych dla usług i komponentów oraz scentralizowanego logowania zdarzeń systemowych. Narzędzia wizualizacji powinny obsługiwać nakładanie różnych typów metryk w celu efektywnej analizy.</p>
+</section>
+<section id="konfiguracja-efektywnych-alertow">
+<h3>Konfiguracja Efektywnych Alertów<a class="headerlink" href="#konfiguracja-efektywnych-alertow" title="Link to this heading">¶</a></h3>
+<p>Strategie alertowania wymagają starannego ustawiania progów i właściwej priorytetyzacji. Alerty o wysokim priorytecie wymagające natychmiastowej akcji obejmują opóźnienia replikacji przekraczające 2 minuty, liczę połączeń przekraczającą 85% max_connections, wskaźniki wycofywania transakcji powyżej 10% utrzymujące się przez 5+ minut oraz przestrzeń dyskową poniżej 15% na wolumenach bazy danych.</p>
+<p>Alerty o średnim priorytecie wymagające badania obejmują czasy zapytań przekraczające 200% historycznych baselines, nietypowy wzrost użycia plików tymczasowych, rozdęcie tabel przekraczające 30% rozmiaru tabeli oraz brak działania autovacuum przez 24+ godziny. Implementacja wielopoziomowego alertowania z progami ostrzeżeń na poziomie 70-80% wartości krytycznych zapewnia wczesne powiadomienie o rozwijających się problemach.</p>
+</section>
+</section>
+<section id="monitorowanie-wysokiej-dostepnosci">
+<h2>Monitorowanie Wysokiej Dostępności<a class="headerlink" href="#monitorowanie-wysokiej-dostepnosci" title="Link to this heading">¶</a></h2>
+<section id="monitorowanie-statusu-replikacji">
+<h3>Monitorowanie Statusu Replikacji<a class="headerlink" href="#monitorowanie-statusu-replikacji" title="Link to this heading">¶</a></h3>
+<p>Monitorowanie klastrów PostgreSQL o wysokiej dostępności wymaga dodatkowych wymiarów poza monitorowaniem pojedynczej instancji. Kluczowe obszary obejmują śledzenie opóźnienia replikacji w jednostkach bajtów i czasu, monitorowanie wskaźnika generowania WAL na głównej instancji w porównaniu do wskaźnika odtwarzania na replikach oraz sprawdzanie akumulacji slotów replikacji, które mogą powodować zapełnienie dysku.</p>
+<p>Zapytanie monitorujące opóźnienie replikacji: „SELECT application_name, pg_wal_lsn_diff(pg_current_wal_lsn(), replay_lsn) AS lag_bytes FROM pg_stat_replication;” pozwala na wykrywanie rosnącego opóźnienia wskazującego, że repliki nie nadążają za instancją główną. Regularne testowanie możliwości promocji repliki oraz monitorowanie mechanizmów automatycznego failover jest kluczowe dla gotowości na awarię.</p>
+</section>
+<section id="weryfikacja-spojnosci">
+<h3>Weryfikacja Spójności<a class="headerlink" href="#weryfikacja-spojnosci" title="Link to this heading">¶</a></h3>
+<p>Implementacja niezależnego monitorowania każdego węzła klastra z osobną instancją monitorowania poza klastrem bazy danych zapewnia widoczność podczas problemów z całym klastrem. Okresowe sprawdzenie spójności danych między instancją główną a replikami, monitorowanie konfliktów replikacji w konfiguracjach replikacji logicznej oraz śledzenie sum kontrolnych tabel są kluczowe dla utrzymania integralności danych.</p>
+<p>Monitorowanie rozkładu połączeń obejmuje śledzenie liczby połączeń na głównej instancji i replikach odczytu, monitorowanie konfiguracji load balancera oraz weryfikację możliwości failover w connection stringach aplikacji. Sprawdzanie nieodpowiednich zapisów kierowanych do replik pomaga uniknąć błędów aplikacyjnych podczas przełączeń.</p>
+</section>
+</section>
+<section id="wniosek">
+<h2>Wniosek<a class="headerlink" href="#wniosek" title="Link to this heading">¶</a></h2>
+<p>Monitorowanie i diagnostyka PostgreSQL stanowią kompleksowy proces wymagający holistycznego podejścia obejmującego multiple warstwy systemu. Skuteczna implementacja łączy monitorowanie na poziomie bazy danych, systemu operacyjnego oraz aplikacji, wykorzystując zarówno narzędzia wbudowane w PostgreSQL, jak i zewnętrzne rozwiązania specjalistyczne. Kluczem do sukcesu jest ustanowienie solidnych baseline’ów wydajności, implementacja inteligentnego systemu alertów oraz regularna analiza trendów umożliwiająca proaktywne zarządzanie zasobami i optymalizację wydajności przed wystąpieniem problemów krytycznych.</p>
+</section>
+<section id="bibliografia">
+<h2>Bibliografia:<a class="headerlink" href="#bibliografia" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://betterstack.com/community/comparisons/postgresql-monitoring-tools/">https://betterstack.com/community/comparisons/postgresql-monitoring-tools/</a></p></li>
+<li><p><a class="reference external" href="https://uptrace.dev/tools/postgresql-monitoring-tools">https://uptrace.dev/tools/postgresql-monitoring-tools</a></p></li>
+<li><p><a class="reference external" href="https://documentation.red-gate.com/pgnow">https://documentation.red-gate.com/pgnow</a></p></li>
+<li><p><a class="reference external" href="https://last9.io/blog/monitoring-postgres/">https://last9.io/blog/monitoring-postgres/</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/17654033/how-to-use-pg-stat-activity">https://stackoverflow.com/questions/17654033/how-to-use-pg-stat-activity</a></p></li>
+<li><p><a class="reference external" href="https://pganalyze.com/blog/postgres-lock-monitoring">https://pganalyze.com/blog/postgres-lock-monitoring</a></p></li>
+<li><p><a class="reference external" href="https://www.pgaudit.org">https://www.pgaudit.org</a></p></li>
+<li><p><a class="reference external" href="https://www.postgresql.org/docs/current/pgstatstatements.html">https://www.postgresql.org/docs/current/pgstatstatements.html</a></p></li>
+<li><p><a class="reference external" href="https://github.com/darold/pgbadger">https://github.com/darold/pgbadger</a></p></li>
+<li><p><a class="reference external" href="https://hevodata.com/learn/elasticsearch-to-postgresql/">https://hevodata.com/learn/elasticsearch-to-postgresql/</a></p></li>
+<li><p><a class="reference external" href="https://www.zabbix.com/integrations/postgresql">https://www.zabbix.com/integrations/postgresql</a></p></li>
+<li><p><a class="reference external" href="https://sematext.com/blog/postgresql-monitoring/">https://sematext.com/blog/postgresql-monitoring/</a></p></li>
+<li><p><a class="reference external" href="https://www.alibabacloud.com/help/en/analyticdb/analyticdb-for-postgresql/use-cases/use-pg-stat-activity-to-analyze-and-diagnose-active-sql-queries">https://www.alibabacloud.com/help/en/analyticdb/analyticdb-for-postgresql/use-cases/use-pg-stat-activity-to-analyze-and-diagnose-active-sql-queries</a></p></li>
+<li><p><a class="reference external" href="https://wiki.postgresql.org/wiki/Lock_Monitoring">https://wiki.postgresql.org/wiki/Lock_Monitoring</a></p></li>
+<li><p><a class="reference external" href="https://severalnines.com/blog/postgresql-log-analysis-pgbadger/">https://severalnines.com/blog/postgresql-log-analysis-pgbadger/</a></p></li>
+<li><p><a class="reference external" href="https://pgwatch.com">https://pgwatch.com</a></p></li>
+<li><p><a class="reference external" href="https://www.depesz.com/2022/07/05/understanding-pg_stat_activity/">https://www.depesz.com/2022/07/05/understanding-pg_stat_activity/</a></p></li>
+<li><p><a class="reference external" href="https://www.postgresql.org/about/news/pgbadger-v124-released-2772/">https://www.postgresql.org/about/news/pgbadger-v124-released-2772/</a></p></li>
+<li><p><a class="reference external" href="https://docs.yugabyte.com/preview/explore/observability/pg-stat-activity/">https://docs.yugabyte.com/preview/explore/observability/pg-stat-activity/</a></p></li>
+<li><p><a class="reference external" href="https://www.postgresql.org/about/news/pgbadger-130-released-2975/">https://www.postgresql.org/about/news/pgbadger-130-released-2975/</a></p></li>
+<li><p><a class="reference external" href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-greenplum/6/greenplum-database/ref_guide-system_catalogs-pg_stat_activity.html">https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-greenplum/6/greenplum-database/ref_guide-system_catalogs-pg_stat_activity.html</a></p></li>
+<li><p><a class="reference external" href="https://www.postgresql.org/docs/current/monitoring.html">https://www.postgresql.org/docs/current/monitoring.html</a></p></li>
+<li><p><a class="reference external" href="https://www.reddit.com/r/PostgreSQL/comments/1auy79s/suggestions_for_postgresql_monitoring_tool/">https://www.reddit.com/r/PostgreSQL/comments/1auy79s/suggestions_for_postgresql_monitoring_tool/</a></p></li>
+<li><p><a class="reference external" href="https://wiki.postgresql.org/wiki/Monitoring">https://wiki.postgresql.org/wiki/Monitoring</a></p></li>
+<li><p><a class="reference external" href="https://www.site24x7.com/learn/postgres-monitoring-guide.html">https://www.site24x7.com/learn/postgres-monitoring-guide.html</a></p></li>
+<li><p><a class="reference external" href="https://www.softwareandbooz.com/introducing-pgnow/">https://www.softwareandbooz.com/introducing-pgnow/</a></p></li>
+<li><p><a class="reference external" href="https://www.postgresql.org/docs/current/monitoring-stats.html">https://www.postgresql.org/docs/current/monitoring-stats.html</a></p></li>
+<li><p><a class="reference external" href="https://docs.dhis2.org/fr/topics/tutorials/analysing-postgresql-logs-using-pgbadger.html">https://docs.dhis2.org/fr/topics/tutorials/analysing-postgresql-logs-using-pgbadger.html</a></p></li>
+<li><p><a class="reference external" href="https://dev.to/full_stack_adi/pgbadger-postgresql-log-analysis-made-easy-54ki">https://dev.to/full_stack_adi/pgbadger-postgresql-log-analysis-made-easy-54ki</a></p></li>
+<li><p><a class="reference external" href="https://support.nagios.com/kb/article/xi-5-10-0-and-newer-postgress-to-mysql-conversion-560.html">https://support.nagios.com/kb/article/xi-5-10-0-and-newer-postgress-to-mysql-conversion-560.html</a></p></li>
+<li><p><a class="reference external" href="https://github.com/melli0505/Docker-ELK-PostgreSQL">https://github.com/melli0505/Docker-ELK-PostgreSQL</a></p></li>
+</ol>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Doc</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../rozdzial1/index.html">Wprowadzenie</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Przegląd literatury</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Sprzet-dla-bazy-danych/source/index.html">Sprzet_dla_bazy_danych documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Sprzet-dla-bazy-danych/source/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Konfiguracja_baz_danych/index.html">Konfiguracja baz danych</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Monitorowanie i diagnostyka</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#wstep">Wstęp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitorowanie-sesji-i-uzytkownikow">Monitorowanie   Sesji   i       Użytkowników</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#analiza-aktywnosci-uzytkownikow">Analiza Aktywności      Użytkowników</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zarzadzanie-zasobami-i-limity">Zarządzanie     Zasobami        i       Limity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#wykrywanie-problemow-z-blokadami">Wykrywanie      Problemów       z       Blokadami</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#monitorowanie-dostepu-do-tabel-i-operacji-na-danych">Monitorowanie   Dostępu do      Tabel   i       Operacji        na      Danych</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#analiza-uzycia-danych">Analiza Użycia  Danych</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#wykrywanie-nieprawidlowych-zapytan">Wykrywanie Nieprawidłowych Zapytań</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bezpieczenstwo-i-zgodnosc">Bezpieczeństwo i Zgodność</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#monitorowanie-logow-i-raportowanie-bledow">Monitorowanie Logów i Raportowanie Błędów</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#analiza-logow-systemowych">Analiza Logów Systemowych</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#automatyczne-raportowanie-i-alerty">Automatyczne Raportowanie i Alerty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#konfiguracja-logowania-dla-pgbadger">Konfiguracja Logowania dla pgBadger</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#monitorowanie-na-poziomie-systemu-operacyjnego">Monitorowanie na Poziomie Systemu Operacyjnego</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#narzedzia-systemowe">Narzędzia Systemowe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integracja-z-narzedziami-zewnetrznymi">Integracja z Narzędziami Zewnętrznymi</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#narzedzia-monitorowania-postgresql">Narzędzia Monitorowania PostgreSQL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#narzedzia-open-source">Narzędzia Open Source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rozwiazania-komercyjne">Rozwiązania Komercyjne</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zabbix-dla-postgresql">Zabbix dla PostgreSQL</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#najlepsze-praktyki-monitorowania">Najlepsze Praktyki Monitorowania</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ustanawianie-baselines-wydajnosci">Ustanawianie Baselines Wydajności</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#korelacja-metryk-miedzysystemowych">Korelacja Metryk Międzysystemowych</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#konfiguracja-efektywnych-alertow">Konfiguracja Efektywnych Alertów</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#monitorowanie-wysokiej-dostepnosci">Monitorowanie Wysokiej Dostępności</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#monitorowanie-statusu-replikacji">Monitorowanie Statusu Replikacji</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#weryfikacja-spojnosci">Weryfikacja Spójności</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#wniosek">Wniosek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bibliografia">Bibliografia:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Wydajnosc_Skalowanie_i_Replikacja/index.html">Wydajność, skalowanie i replikacja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bezpieczenstwo/index.html">Bezpieczeństwo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../rozdzial3/index.html">Modele Bazy Danych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rozdzial4/index.html">Skrypty oraz Zapytania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rozdzial5/index.html">Spis repozytoriów</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Przegląd literatury</a><ul>
+      <li>Previous: <a href="../Konfiguracja_baz_danych/Konfiguracja_baz_danych.html" title="poprzedni rozdział">Sprawozdanie: Konfiguracja i Zarządzanie Bazą Danych</a></li>
+      <li>Next: <a href="../Wydajnosc_Skalowanie_i_Replikacja/index.html" title="następny rozdział">Wydajność, skalowanie i replikacja</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025, Uliasz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/rozdzial2/repo-wspolne/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
