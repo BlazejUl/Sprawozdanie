@@ -2,4 +2,4 @@ Zapytania SQL
 ================
 
 
-autofunction:: kod-db.sqlite.lib.backup
+py:function:: kod-db.sqlite.lib.backup
