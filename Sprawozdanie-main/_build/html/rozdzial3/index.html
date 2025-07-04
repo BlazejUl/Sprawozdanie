@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Modele konceptualny, logiczny, fizyczny &#8212; Doc 1. - dokumentacja</title>
+    <title>Modele Bazy Danych &#8212; Doc 1. - dokumentacja</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=cb25574f" />
     <script src="../_static/documentation_options.js?v=88ea07f6"></script>
@@ -15,7 +15,7 @@
     <link rel="index" title="Indeks" href="../genindex.html" />
     <link rel="search" title="Szukaj" href="../search.html" />
     <link rel="next" title="Zapytania SQL" href="../rozdzial4/index.html" />
-    <link rel="prev" title="Przegląd literatury" href="../rozdzial2/index.html" />
+    <link rel="prev" title="Bezpieczeństwo" href="../rozdzial2/bezpieczenstwo/index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -32,8 +32,8 @@
 
           <div class="body" role="main">
             
-  <section id="modele-konceptualny-logiczny-fizyczny">
-<h1>Modele konceptualny, logiczny, fizyczny<a class="headerlink" href="#modele-konceptualny-logiczny-fizyczny" title="Link to this heading">¶</a></h1>
+  <section id="modele-bazy-danych">
+<h1>Modele Bazy Danych<a class="headerlink" href="#modele-bazy-danych" title="Link to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Błażej Uliasz</p>
@@ -41,6 +41,98 @@
 </dl>
 <section id="wprowadzenie">
 <h2>Wprowadzenie<a class="headerlink" href="#wprowadzenie" title="Link to this heading">¶</a></h2>
+<p>w tym rozdziale są zapisane modele bazy danych oparte na sqlite oraz postgresql</p>
+</section>
+<section id="model-konceptualny">
+<h2>Model Konceptualny<a class="headerlink" href="#model-konceptualny" title="Link to this heading">¶</a></h2>
+<p>Baza danych zkłada się z 3 tabel <strong>towary</strong> <strong>tranzakcje</strong> <strong>uzytkownicy</strong></p>
+<section id="relacje">
+<h3>Relacje<a class="headerlink" href="#relacje" title="Link to this heading">¶</a></h3>
+<p><strong>uzytkownicy</strong> z <strong>tranzakcje</strong> mają relację wielu do wielu</p>
+<p><strong>towary</strong> z <strong>tranzakcje</strong> mają relację wielu do wielu</p>
+<p><strong>uzytkownicy</strong> z <strong>towary</strong> mają relację wielu do wielu przez tabelę <strong>tranzakcje</strong></p>
+</section>
+</section>
+<section id="model-logiczny">
+<h2>Model Logiczny<a class="headerlink" href="#model-logiczny" title="Link to this heading">¶</a></h2>
+<p>tabela <strong>uzytkownicy</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ID</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">join_date</span></code> — format tekst</p></li>
+</ul>
+<p>tabela <strong>towary</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">price</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_ID</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">add_date</span></code> — format tekst</p></li>
+</ul>
+<p>tabela <strong>tranzakcje</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ID</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_ID</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">purchase_ID</span></code> — format tekst</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">purchase_date</span></code> — format tekst</p></li>
+</ul>
+<section id="id1">
+<h3>Relacje<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p><strong>uzytkownicy</strong> z <strong>tranzakcje</strong> mają relację wielu do wielu za pomocą kolumny <code class="docutils literal notranslate"><span class="pre">user_ID</span></code></p>
+<p><strong>towary</strong> z <strong>tranzakcje</strong> mają relację wielu do wielu <code class="docutils literal notranslate"><span class="pre">item_ID</span></code></p>
+<p><strong>uzytkownicy</strong> z <strong>towary</strong> mają relację wielu do wielu przez tabelę <strong>tranzakcje</strong></p>
+</section>
+</section>
+<section id="model-fizyczny">
+<h2>Model Fizyczny<a class="headerlink" href="#model-fizyczny" title="Link to this heading">¶</a></h2>
+<section id="implementacja-sqlite">
+<h3>Implementacja <strong>sqlite</strong><a class="headerlink" href="#implementacja-sqlite" title="Link to this heading">¶</a></h3>
+<p>tabela <strong>uzytkownicy</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ID</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">join_date</span></code> — format text</p></li>
+</ul>
+<p>tabela <strong>towary</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">price</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_ID</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">add_date</span></code> — format text</p></li>
+</ul>
+<p>tabela <strong>tranzakcje</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ID</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_ID</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">purchase_ID</span></code> — format text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">purchase_date</span></code> — format text</p></li>
+</ul>
+</section>
+<section id="implementacja-postgresql">
+<h3>Implementacja <strong>postgresql</strong><a class="headerlink" href="#implementacja-postgresql" title="Link to this heading">¶</a></h3>
+<p>tabela <strong>uzytkownicy</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ID</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">join_date</span></code> — format DATE</p></li>
+</ul>
+<p>tabela <strong>towary</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">price</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_ID</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">add_date</span></code> — format DATE</p></li>
+</ul>
+<p>tabela <strong>tranzakcje</strong> składa się z kolumn</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ID</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_ID</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">purchase_ID</span></code> — format VARCHAR(10)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">purchase_date</span></code> — format DATE</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -63,10 +155,23 @@
 <h3>Nawigacja</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../rozdzial1/index.html">wprowadzenie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rozdzial1/index.html">Wprowadzenie</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../rozdzial2/index.html">Przegląd literatury</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Modele konceptualny, logiczny, fizyczny</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modele Bazy Danych</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#wprowadzenie">Wprowadzenie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-konceptualny">Model Konceptualny</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#relacje">Relacje</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#model-logiczny">Model Logiczny</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Relacje</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#model-fizyczny">Model Fizyczny</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#implementacja-sqlite">Implementacja <strong>sqlite</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementacja-postgresql">Implementacja <strong>postgresql</strong></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../rozdzial4/index.html">Zapytania SQL</a></li>
@@ -77,7 +182,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../rozdzial2/index.html" title="poprzedni rozdział">Przegląd literatury</a></li>
+      <li>Previous: <a href="../rozdzial2/bezpieczenstwo/index.html" title="poprzedni rozdział">Bezpieczeństwo</a></li>
       <li>Next: <a href="../rozdzial4/index.html" title="następny rozdział">Zapytania SQL</a></li>
   </ul></li>
 </ul>
