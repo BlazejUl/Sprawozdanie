@@ -38,34 +38,37 @@
 <h2>Wstęp<a class="headerlink" href="#wstep" title="Link to this heading">¶</a></h2>
 <p>W tej części dokumentu przedstawione i wytłumaczone wszystkie zrobione skrypty i zapytania sql dla obu baz danych.</p>
 </section>
-<section id="sqlitedb">
-<h2>sqlitedb<a class="headerlink" href="#sqlitedb" title="Link to this heading">¶</a></h2>
+<section id="sqlite">
+<h2>sqlite<a class="headerlink" href="#sqlite" title="Link to this heading">¶</a></h2>
 <section id="skrypty">
-<h3>skrypty<a class="headerlink" href="#skrypty" title="Link to this heading">¶</a></h3>
+<h3>Skrypty<a class="headerlink" href="#skrypty" title="Link to this heading">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">kod-db.sqlite.lib.backup()</span></span></dt>
 <dd><p>Kopiuje główną bazę danych i zapisuje jej stan do zapasowej bazy danych</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parametry<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kind</strong> (<em>none</em>) – none</p>
-</dd>
-<dt class="field-even">Zwraca<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
-</dd>
-<dt class="field-odd">Typ zwracany<span class="colon">:</span></dt>
-<dd class="field-odd"><p>none</p>
-</dd>
-</dl>
+<p>:param : none
+:type : none
+:return: none
+:rtype: none</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">kod-db.sqlite.lib.restore()</span></span></dt>
 <dd><p>Kopiuje zapasową bazę danych i zapisuje jej stan do głównej bazy danych</p>
+<p>:param : none
+:type : none
+:return: none
+:rtype: none</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.sqlite.lib.dropTable(tabName)</span></span></dt>
+<dd><p>Próbuje usunąć tabelę o nazwie <code class="docutils literal notranslate"><span class="pre">tabName</span></code> z głównej bazy danych jeżeli wyskoczy błąd wypisuje <em>błąd podczas usuwania  tabeli</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kind</strong> (<em>none</em>) – none</p>
+<dd class="field-odd"><p><strong>tabName</strong> (<em>string</em>) – Nazwa tablicy do usunięcia</p>
 </dd>
 <dt class="field-even">Zwraca<span class="colon">:</span></dt>
 <dd class="field-even"><p>none</p>
@@ -78,11 +81,201 @@
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">kod-db.sqlite.lib.dropTable(tabName)</span></span></dt>
-<dd><p>Próbuje usunąć tabelę z głównej bazy danych o nazwie <code class="docutils literal notranslate"><span class="pre">tabName</span></code> jeżeli wyskoczy błąd wypisuje <em>błąd podczas usuwania  tabeli</em></p>
+<span class="sig-name descname"><span class="pre">kod-db.sqlite.lib.jsonToLite(dbPath,jsonPath,tabName,k1,k2,k3,k4)</span></span></dt>
+<dd><p>Jeżeli w bazie danych nie ma tabeli o nazwie <code class="docutils literal notranslate"><span class="pre">tabName</span></code> tworzy ją następnie otwiera plik <code class="docutils literal notranslate"><span class="pre">.json</span></code> i zapisuje do tabeli pod nazwą <code class="docutils literal notranslate"><span class="pre">tabName</span></code> wartości z pliku</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tabName</strong> (<em>string</em>) – Nazwa tablicy do usunięcia</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dbPath</strong> (<em>string</em>) – Ścieżka do bazy danych</p></li>
+<li><p><strong>jsonPath</strong> (<em>string</em>) – Ścieżka do pliku json</p></li>
+<li><p><strong>tabName</strong> (<em>string</em>) – Nazwa tablicy do stworzenia / otworzenia</p></li>
+<li><p><strong>k1</strong> (<em>string</em>) – pierwsza kolumna tablicy</p></li>
+<li><p><strong>k2</strong> (<em>string</em>) – dróga kolumna tablicy</p></li>
+<li><p><strong>k3</strong> (<em>string</em>) – trzecia kolumna tablicy</p></li>
+<li><p><strong>k4</strong> (<em>string</em>) – czwarta kolumna tablicy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca<span class="colon">:</span></dt>
+<dd class="field-even"><p>none</p>
+</dd>
+<dt class="field-odd">Typ zwracany<span class="colon">:</span></dt>
+<dd class="field-odd"><p>none</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="zapytania-sql">
+<h3>Zapytania sql<a class="headerlink" href="#zapytania-sql" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.sqlite.lib.SQLuser_price()</span></span></dt>
+<dd><p>wyświetla kolumny uzytkownicy.username, towary.price łączy tabelę uzytkownicy z tabelą towary poprzez tabelę tranzakcje używając user_ID item_ID znajdujących się w obu tabelach</p>
+<p>:param : none
+:type : none
+:return: none
+:rtype: none</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.sqlite.lib.SQLdate_price()</span></span></dt>
+<dd><p>wyświetla kolumny tranzakcje.purchase_date, towary.price łączy tabelę poprzez item_ID</p>
+<p>:param : none
+:type : none
+:return: none
+:rtype: none</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.sqlite.lib.SQLuser_towar_name()</span></span></dt>
+<dd><p>wyświetla kolumny uzytkownicy.username, towary.name łączy tabelę uzytkownicy z tabelą towary poprzez tabelę tranzakcje używając user_ID item_ID znajdujących się w obu tabelach</p>
+<p>:param : none
+:type : none
+:return: none
+:rtype: none</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="postgresql">
+<h2>postgresql<a class="headerlink" href="#postgresql" title="Link to this heading">¶</a></h2>
+<section id="id1">
+<h3>Skrypty<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.postgresql.lib.connect_db()</span></span></dt>
+<dd><p>zawiera połączenie z pgadminem używając biblioteki psycopg i parametrów znajdujących się w pliku database_creds.json</p>
+<p>:param : none
+:type : none
+:return: connection
+:rtype: psycopg.connect</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.postgresql.lib.csvToPostgre(conn,path,tabName,k1,k2,k3,k4)</span></span></dt>
+<dd><p>Jeżeli w bazie danych nie ma tabeli o nazwie <code class="docutils literal notranslate"><span class="pre">tabName</span></code> tworzy ją następnie otwiera plik <code class="docutils literal notranslate"><span class="pre">.csv</span></code> i zapisuje do tabeli pod nazwą <code class="docutils literal notranslate"><span class="pre">tabName</span></code> wartości z pliku</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn</strong> (<em>psycopg.connect</em>) – połączenie z bazą danych</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – Ścieżka do pliku csv</p></li>
+<li><p><strong>tabName</strong> (<em>string</em>) – Nazwa tablicy do stworzenia / otworzenia</p></li>
+<li><p><strong>k1</strong> (<em>string</em>) – pierwsza kolumna tablicy</p></li>
+<li><p><strong>k2</strong> (<em>string</em>) – dróga kolumna tablicy</p></li>
+<li><p><strong>k3</strong> (<em>string</em>) – trzecia kolumna tablicy</p></li>
+<li><p><strong>k4</strong> (<em>string</em>) – czwarta kolumna tablicy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca<span class="colon">:</span></dt>
+<dd class="field-even"><p>none</p>
+</dd>
+<dt class="field-odd">Typ zwracany<span class="colon">:</span></dt>
+<dd class="field-odd"><p>none</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.postgresql.lib.backup(conn)</span></span></dt>
+<dd><p>tworzy backupa bazy danych</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conn</strong> (<em>psycopg.connect</em>) – połączenie z bazą danych</p>
+</dd>
+<dt class="field-even">Zwraca<span class="colon">:</span></dt>
+<dd class="field-even"><p>none</p>
+</dd>
+<dt class="field-odd">Typ zwracany<span class="colon">:</span></dt>
+<dd class="field-odd"><p>none</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.postgresql.lib.restore(conn)</span></span></dt>
+<dd><p>odtwarza bazę danych z backupa</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conn</strong> (<em>psycopg.connect</em>) – połączenie z bazą danych</p>
+</dd>
+<dt class="field-even">Zwraca<span class="colon">:</span></dt>
+<dd class="field-even"><p>none</p>
+</dd>
+<dt class="field-odd">Typ zwracany<span class="colon">:</span></dt>
+<dd class="field-odd"><p>none</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.postgresql.lib.dropTable(conn,table)</span></span></dt>
+<dd><p>Próbuje usunąć tabelę o nazwie table z bazy danych</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn</strong> (<em>psycopg.connect</em>) – połączenie z bazą danych</p></li>
+<li><p><strong>table</strong> (<em>string</em>) – Nazwa tablicy do usunięcia</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca<span class="colon">:</span></dt>
+<dd class="field-even"><p>none</p>
+</dd>
+<dt class="field-odd">Typ zwracany<span class="colon">:</span></dt>
+<dd class="field-odd"><p>none</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id2">
+<h3>Zapytania sql<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.postgresql.lib.SQLuser_price(conn)</span></span></dt>
+<dd><p>wyświetla kolumny uzytkownicy.username, towary.price łączy tabelę uzytkownicy z tabelą towary poprzez tabelę tranzakcje używając user_ID item_ID znajdujących się w obu tabelach</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conn</strong> (<em>psycopg.connect</em>) – połączenie z bazą danych</p>
+</dd>
+<dt class="field-even">Zwraca<span class="colon">:</span></dt>
+<dd class="field-even"><p>none</p>
+</dd>
+<dt class="field-odd">Typ zwracany<span class="colon">:</span></dt>
+<dd class="field-odd"><p>none</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.postgresql.lib.SQLdate_price(conn)</span></span></dt>
+<dd><p>wyświetla kolumny tranzakcje.purchase_date, towary.price łączy tabelę poprzez item_ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conn</strong> (<em>psycopg.connect</em>) – połączenie z bazą danych</p>
+</dd>
+<dt class="field-even">Zwraca<span class="colon">:</span></dt>
+<dd class="field-even"><p>none</p>
+</dd>
+<dt class="field-odd">Typ zwracany<span class="colon">:</span></dt>
+<dd class="field-odd"><p>none</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">kod-db.postgresql.lib.SQLuser_towar_name(conn)</span></span></dt>
+<dd><p>wyświetla kolumny uzytkownicy.username, towary.name łączy tabelę uzytkownicy z tabelą towary poprzez tabelę tranzakcje używając user_ID item_ID znajdujących się w obu tabelach</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conn</strong> (<em>psycopg.connect</em>) – połączenie z bazą danych</p>
 </dd>
 <dt class="field-even">Zwraca<span class="colon">:</span></dt>
 <dd class="field-even"><p>none</p>
@@ -121,8 +314,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../rozdzial3/index.html">Modele Bazy Danych</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Skrypty oraz Zapytania</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#wstep">Wstęp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sqlitedb">sqlitedb</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#skrypty">skrypty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sqlite">sqlite</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#skrypty">Skrypty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zapytania-sql">Zapytania sql</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#postgresql">postgresql</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Skrypty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Zapytania sql</a></li>
 </ul>
 </li>
 </ul>
