@@ -18,8 +18,7 @@ Skrypty
 
    Kopiuje główną bazę danych i zapisuje jej stan do zapasowej bazy danych
 
-   :param : none
-   :type : none
+
    :return: none
    :rtype: none
 
@@ -29,8 +28,7 @@ Skrypty
 
    Kopiuje zapasową bazę danych i zapisuje jej stan do głównej bazy danych
 
-   :param : none
-   :type : none
+
    :return: none
    :rtype: none
 
@@ -75,8 +73,7 @@ Zapytania sql
 
    wyświetla kolumny uzytkownicy.username, towary.price łączy tabelę uzytkownicy z tabelą towary poprzez tabelę tranzakcje używając user_ID item_ID znajdujących się w obu tabelach
 
-   :param : none
-   :type : none
+
    :return: none
    :rtype: none
 
@@ -86,8 +83,7 @@ Zapytania sql
 
    wyświetla kolumny tranzakcje.purchase_date, towary.price łączy tabelę poprzez item_ID 
 
-   :param : none
-   :type : none
+
    :return: none
    :rtype: none
 
@@ -97,8 +93,7 @@ Zapytania sql
 
    wyświetla kolumny uzytkownicy.username, towary.name łączy tabelę uzytkownicy z tabelą towary poprzez tabelę tranzakcje używając user_ID item_ID znajdujących się w obu tabelach 
 
-   :param : none
-   :type : none
+
    :return: none
    :rtype: none
 
