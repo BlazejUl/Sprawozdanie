@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.7.4)  4 JUL 2025 20:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.7.4)  5 JUL 2025 17:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -842,15 +842,14 @@ dvips/tex-gyre/q-ec.enc}] [2
 
 ] (./doc.toc [1
 
-] [2])
+] [2] [3])
 \tf@toc=\write6
 \openout6 = `doc.toc'.
 
- [3] [4
-
-]
+ [4]
 Chapter 1.
 [1
+
 
 ] [2
 
@@ -891,84 +890,89 @@ xtt/m/n/10 pg_namespace_size(\TS1/txtt/m/n/10 '\T1/txtt/m/n/10 nazwa_schematu\T
 S1/txtt/m/n/10 '\T1/txtt/m/n/10 ) \T1/qtm/m/n/10 oraz
  []
 
-[16] [17] [18]
-Underfull \hbox (badness 10000) in paragraph at lines 1409--1411
+[16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 2182--2184
 \T1/qtm/m/n/10 priorytecie obejmuj¡ opó¹nienia replikacji przekraczaj¡ce 2 minu
 ty, licz¦ poª¡cze« przekraczaj¡c¡ 85%
  []
 
 
-Underfull \hbox (badness 5388) in paragraph at lines 1415--1417
+Underfull \hbox (badness 5388) in paragraph at lines 2188--2190
 \T1/qtm/m/n/10 zapewniaj¡cy maksimum informacji. Podstawowe ustawienia konfigur
 acyjne w postgresql.conf obejmuj¡:
  []
 
-[19]
-Underfull \hbox (badness 10000) in paragraph at lines 1439--1441
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 2212--2214
 \T1/qtm/m/n/10 PostgreSQL doskonale integruje si¦ z zaawansowanymi narz¦dziami 
 monitorowania infrastruktury IT,
  []
 
-[20]
-Underfull \hbox (badness 5652) in paragraph at lines 1496--1498
+[28]
+Underfull \hbox (badness 5652) in paragraph at lines 2269--2271
 \T1/qtm/m/n/10 Problemy wydajno±ci PostgreSQL rzadko wyst¦puj¡ w izolacji. Najb
 ardziej warto±ciowe implementacje
  []
 
-[21] [22]
-Underfull \hbox (badness 10000) in paragraph at lines 1591--1593
+[29] [30]
+Underfull \hbox (badness 10000) in paragraph at lines 2364--2366
 [][][]$\T1/qtm/m/n/10 https : / / www . alibabacloud . com / help / en / analyt
 icdb / analyticdb-[]for-[]postgresql / use-[]cases /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1623--1625
+Underfull \hbox (badness 10000) in paragraph at lines 2396--2398
 [][][]$\T1/qtm/m/n/10 https : / / techdocs . broadcom . com / us / en / vmware-
 []tanzu / data-[]solutions / tanzu-[]greenplum / 6 / greenplum-[]database /
  []
 
-[23] [24] [25] [26] [27] [28] [29]
-Underfull \hbox (badness 10000) in paragraph at lines 2107--2110
+[31] [32] [33] [34] [35] [36] [37]
+Underfull \hbox (badness 10000) in paragraph at lines 2880--2883
 []\T1/qtm/m/n/10 [7] Redgate, The Importance of Database Performance Testing []
 []$https : / / www . red-[]gate . com / simple-[]talk / sql /
  []
 
-[30] [31] [32] [33] [34]
-Underfull \hbox (badness 5847) in paragraph at lines 2475--2477
+[38]
+Underfull \hbox (badness 10000) in paragraph at lines 2890--2890
+|[][]\T1/qhv/b/n/14.4 Partycjonowanie danych w PostgreSQL ^^U analiza, typy,
+ []
+
+[39] [40] [41] [42] [43] [44] [45] [46] [47] [48]
+Underfull \hbox (badness 5847) in paragraph at lines 3723--3725
 \T1/qtm/m/n/10 Sprawdzenie czy poª¡czenie jest szyfrowanie w PostgreSQL wystarc
 zy u»y¢ prostego polecenia \T1/txtt/m/n/10 SELECT
  []
 
-[35] [36]
+[49] [50] [51] [52] [53] [54] [55] [56] [57] [58]
 Chapter 3.
-[37
+[59
 
-] [38] [39] [40
+] [60] [61] [62
 
 ]
 Chapter 4.
-[41] [42] [43] [44]
+[63] [64] [65] [66]
 Chapter 5.
-[45
+[67
 
-] [46
+] [68
 
 ]
 Chapter 6.
-(./doc.ind) [47] (./doc.aux)
+(./doc.ind) [69] (./doc.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `doc.out' has not changed.
-(rerunfilecheck)             Checksum: 0B3776A6CC6F5CBEE5C7BA9551CC4052;35685.
+(rerunfilecheck)             Checksum: CD2A8DBAACCBB5ACB77604CCC6694E16;53107.
  ) 
 Here is how much of TeX's memory you used:
- 16899 strings out of 476182
- 286536 string characters out of 5795596
- 1965975 words of memory out of 5000000
- 38257 multiletter control sequences out of 15000+600000
- 613017 words of font info for 80 fonts, out of 8000000 for 9000
+ 17194 strings out of 476182
+ 297828 string characters out of 5795596
+ 1977975 words of memory out of 5000000
+ 38432 multiletter control sequences out of 15000+600000
+ 615869 words of font info for 81 fonts, out of 8000000 for 9000
  15 hyphenation exceptions out of 8191
  72i,12n,79p,845b,734s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/tex-gyre/qhvb.pfb></usr/share/texmf/font
@@ -979,10 +983,10 @@ ex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1x
 btt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/txfonts/tcxtt.pfb>
-Output written on doc.pdf (53 pages, 317619 bytes).
+Output written on doc.pdf (75 pages, 379076 bytes).
 PDF statistics:
- 1270 PDF objects out of 1440 (max. 8388607)
- 1185 compressed objects within 12 object streams
- 263 named destinations out of 1000 (max. 500000)
- 1421 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1779 PDF objects out of 2073 (max. 8388607)
+ 1667 compressed objects within 17 object streams
+ 382 named destinations out of 1000 (max. 500000)
+ 2029 words of extra memory for PDF output out of 10000 (max. 10000000)
 
