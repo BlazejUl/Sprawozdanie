@@ -249,4 +249,3 @@
 \contentsline {section}{\numberline {5.2}mój przegląd literatury}{67}{section.5.2}%
 \contentsline {section}{\numberline {5.3}repozytorium ze skryptami}{67}{section.5.3}%
 \contentsline {section}{\numberline {5.4}pozostałe repozytoria z przeglądem literatury}{67}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Indices and tables}{69}{chapter.6}%
