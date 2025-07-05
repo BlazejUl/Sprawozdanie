@@ -16,3 +16,12 @@
 [submodule "Sprawozdanie-main/source/rozdzial2/repo-wspolne"]
 	path = Sprawozdanie-main/source/rozdzial2/repo-wspolne
 	url = https://github.com/GrzegorzSzczepanek/repo-wspolne
+[submodule "Sprawozdanie-main/source/rozdzial2/Kopie_zapasowe_i_odzyskiwanie_danych"]
+	path = Sprawozdanie-main/source/rozdzial2/Kopie_zapasowe_i_odzyskiwanie_danych
+	url = https://github.com/m-smieja/Kopie_zapasowe_i_odzyskiwanie_danych
+[submodule "Sprawozdanie-main/source/rozdzial2/Partycjonowanie-danych"]
+	path = Sprawozdanie-main/source/rozdzial2/Partycjonowanie-danych
+	url = https://github.com/BartekHen/Partycjonowanie-danych
+[submodule "Sprawozdanie-main/source/rozdzial2/Kontrola_i_konserwacja"]
+	path = Sprawozdanie-main/source/rozdzial2/Kontrola_i_konserwacja
+	url = https://github.com/Pi0trM/Kontrola_i_konserwacja
