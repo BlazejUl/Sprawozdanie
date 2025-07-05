@@ -18,9 +18,3 @@ Sprawozanie labolatoria Bazy Danych documentation
    rozdzial5/index
 
 
-Indices and tables
-====================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
